@@ -1,10 +1,9 @@
 ---
 const year = new Date().getFullYear();
 const socials = [
-  { href: "https://instagram.com/djslxck", label: "Instagram" },
-  { href: "https://tiktok.com/@djslxck", label: "TikTok" },
-  { href: "https://soundcloud.com/djslxck", label: "SoundCloud" },
-  { href: "mailto:hello@djslxck.com", label: "Email" },
+  { href: "https://instagram.com/willrable", label: "Instagram", handle: "@willrable" },
+  { href: "https://tiktok.com/@dj_slxck", label: "TikTok", handle: "@dj_slxck" },
+  { href: "mailto:willrable@gmail.com", label: "Email", handle: "willrable@gmail.com" },
 ];
 ---
 
@@ -34,7 +33,7 @@ const socials = [
 
       <div>
         <p class="eyebrow mb-4">Connect</p>
-        <ul class="space-y-2 text-sm text-muted">
+        <ul class="space-y-3 text-sm text-muted">
           {
             socials.map((s) => (
               <li>
@@ -42,9 +41,12 @@ const socials = [
                   href={s.href}
                   target={s.href.startsWith("http") ? "_blank" : undefined}
                   rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  class="hover:text-text"
+                  class="group inline-flex items-center gap-3 hover:text-text transition-colors"
                 >
-                  {s.label}
+                  <span class="text-text">{s.label}</span>
+                  <span class="text-muted group-hover:text-accent transition-colors">
+                    {s.handle}
+                  </span>
                 </a>
               </li>
             ))

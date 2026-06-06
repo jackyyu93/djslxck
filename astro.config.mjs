@@ -9,4 +9,12 @@ export default defineConfig({
   server: {
     host: true,
   },
+  build: {
+    inlineStylesheets: "auto",
+  },
+  compressHTML: true,
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
 });

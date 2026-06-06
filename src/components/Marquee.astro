@@ -1,28 +1,63 @@
 ---
 export interface Props {
   items: string[];
+  speed?: "slow" | "normal" | "fast";
 }
 
-const { items } = Astro.props;
+const { items, speed = "normal" } = Astro.props;
 // duplicate items for seamless loop
-const tracks = [...items, ...items];
+const tracks = [...items, ...items, ...items];
+
+const speedClass = {
+  slow: "[--marquee-duration:60s]",
+  normal: "[--marquee-duration:40s]",
+  fast: "[--marquee-duration:25s]",
+}[speed];
 ---
 
-<div class="relative overflow-hidden border-y border-border bg-surface py-10">
-  <div class="marquee-track gap-16 whitespace-nowrap">
+<div
+  class:list={[
+    "relative overflow-hidden border-y border-border bg-surface py-12",
+    speedClass,
+  ]}
+>
+  <div class="marquee-track-v2 gap-x-20 whitespace-nowrap">
     {
       tracks.map((item) => (
-        <span class="font-display text-3xl uppercase tracking-widest text-muted">
+        <span class="font-display text-3xl uppercase tracking-widest text-muted sm:text-4xl md:text-5xl">
           {item}
-          <span class="mx-8 inline-block text-accent">✦</span>
+          <span class="mx-10 inline-block align-middle text-accent text-2xl">✦</span>
         </span>
       ))
     }
   </div>
   <div
-    class="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-surface to-transparent"
+    class="pointer-events-none absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-surface via-surface/80 to-transparent"
   ></div>
   <div
-    class="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-surface to-transparent"
+    class="pointer-events-none absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-surface via-surface/80 to-transparent"
   ></div>
 </div>
+
+<style>
+  .marquee-track-v2 {
+    display: flex;
+    width: max-content;
+    animation: marquee-scroll var(--marquee-duration, 40s) linear infinite;
+  }
+
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% / 3));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track-v2 {
+      animation: none;
+    }
+  }
+</style>
