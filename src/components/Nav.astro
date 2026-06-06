@@ -105,22 +105,25 @@ const pathname = Astro.url.pathname;
   const toggle = document.getElementById("mobile-toggle");
   const menu = document.getElementById("mobile-menu");
 
-  // Scroll-state nav (transparent -> solid) — uses opacity for cheap rendering
-  let scrolled = false;
-  const onScroll = () => {
-    if (!nav) return;
-    const shouldBeScrolled = window.scrollY > 20;
-    if (shouldBeScrolled !== scrolled) {
-      scrolled = shouldBeScrolled;
-      if (scrolled) {
-        nav.classList.add("bg-bg/95", "border-b", "border-border", "shadow-lg");
-      } else {
-        nav.classList.remove("bg-bg/95", "border-b", "border-border", "shadow-lg");
-      }
-    }
-  };
-  onScroll();
-  window.addEventListener("scroll", onScroll, { passive: true });
+  // Scroll-state nav via IntersectionObserver — zero scroll listener cost.
+  // Sentinel sits at top of page; when it leaves viewport, nav becomes solid.
+  if (nav) {
+    const sentinel = document.createElement("div");
+    sentinel.style.cssText = "position:absolute;top:0;left:0;width:1px;height:20px;pointer-events:none;";
+    document.body.prepend(sentinel);
+
+    const navObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          nav.classList.remove("bg-bg/95", "border-b", "border-border", "shadow-lg");
+        } else {
+          nav.classList.add("bg-bg/95", "border-b", "border-border", "shadow-lg");
+        }
+      },
+      { threshold: 0 }
+    );
+    navObserver.observe(sentinel);
+  }
 
   // Mobile toggle
   toggle?.addEventListener("click", () => {

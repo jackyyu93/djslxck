@@ -20,18 +20,17 @@ const {
   class="relative -mt-20 flex min-h-screen items-center overflow-hidden"
   data-hero
 >
-  <!-- Background image with parallax -->
-  <div class="absolute inset-0 z-0" data-hero-bg>
+  <!-- Static background — no parallax. Pure CSS for zero scroll cost. -->
+  <div class="absolute inset-0 z-0">
     <picture>
       <source media="(max-width: 768px)" srcset={imageMobile} />
       <img
         src={image}
         alt=""
-        class="h-[110%] w-full object-cover will-change-transform"
+        class="h-full w-full object-cover"
         loading="eager"
         fetchpriority="high"
         decoding="async"
-        data-hero-image
       />
     </picture>
     <!-- Layered overlays for depth -->
@@ -70,9 +69,10 @@ const {
     </div>
   </div>
 
-  <!-- Scroll cue -->
+  <!-- Scroll cue — fades out via CSS scroll-driven animation if supported,
+       otherwise stays visible. No JS scroll listener. -->
   <div
-    class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-muted opacity-0"
+    class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-muted opacity-0 hero-cue"
     data-hero-cue
   >
     <div class="flex flex-col items-center gap-2">
@@ -82,13 +82,29 @@ const {
   </div>
 </section>
 
+<style>
+  /* Fade out scroll cue using CSS scroll-driven animation (Chrome/Edge support).
+     Other browsers: cue stays visible. No JS scroll listener required. */
+  @supports (animation-timeline: scroll()) {
+    .hero-cue {
+      animation: cue-fade ease-out forwards;
+      animation-timeline: scroll();
+      animation-range: 0 200px;
+    }
+    @keyframes cue-fade {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+  }
+</style>
+
 <script>
-  // Hero entrance animation — staggered fade+rise
+  // Hero entrance animation only. NO scroll listeners.
   const animate = (el: Element | null, delay: number) => {
     if (!el) return;
     const target = el as HTMLElement;
-    target.style.transform = "translateY(24px)";
-    target.style.transition = `opacity 0.9s ease-out ${delay}ms, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`;
+    target.style.transform = "translateY(20px)";
+    target.style.transition = `opacity 0.8s ease-out ${delay}ms, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`;
     requestAnimationFrame(() => {
       target.style.opacity = "1";
       target.style.transform = "translateY(0)";
@@ -107,69 +123,5 @@ const {
     document.addEventListener("DOMContentLoaded", onReady);
   } else {
     onReady();
-  }
-
-  // Subtle parallax on the hero background — translate3d only, GPU-accelerated
-  // Skipped on touch devices, reduced-motion users, and small screens
-  const heroImage = document.querySelector(
-    "[data-hero-image]"
-  ) as HTMLElement | null;
-  const heroSection = document.querySelector("[data-hero]") as HTMLElement | null;
-
-  const enableParallax =
-    heroImage &&
-    heroSection &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-    !window.matchMedia("(hover: none)").matches &&
-    window.innerWidth >= 1024;
-
-  if (enableParallax) {
-    let ticking = false;
-    let lastOffset = 0;
-
-    const update = () => {
-      const rect = heroSection.getBoundingClientRect();
-      // Only animate while hero is at all visible
-      if (rect.bottom > 0 && rect.top < window.innerHeight) {
-        const offset = Math.max(0, -rect.top) * 0.2;
-        if (Math.abs(offset - lastOffset) > 0.5) {
-          heroImage.style.transform = `translate3d(0, ${offset}px, 0)`;
-          lastOffset = offset;
-        }
-      }
-      ticking = false;
-    };
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!ticking) {
-          requestAnimationFrame(update);
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
-    update();
-  }
-
-  // Fade out scroll cue once user starts scrolling
-  const scrollCue = document.querySelector("[data-hero-cue]") as HTMLElement | null;
-  if (scrollCue) {
-    let cueHidden = false;
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (!cueHidden && window.scrollY > 80) {
-          cueHidden = true;
-          scrollCue.style.transition = "opacity 0.4s ease-out";
-          scrollCue.style.opacity = "0";
-        } else if (cueHidden && window.scrollY <= 20) {
-          cueHidden = false;
-          scrollCue.style.opacity = "1";
-        }
-      },
-      { passive: true }
-    );
   }
 </script>

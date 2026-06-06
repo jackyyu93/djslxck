@@ -84,54 +84,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <Footer />
 
     <script>
-      import Lenis from "lenis";
-
-      const prefersReducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-
-      // Smooth scroll — disabled if user prefers reduced motion
-      // Also skip on touch devices where native scroll is better
-      const isTouch = window.matchMedia("(hover: none)").matches;
-      if (!prefersReducedMotion && !isTouch) {
-        const lenis = new Lenis({
-          duration: 0.8,
-          easing: (t) => 1 - Math.pow(1 - t, 3), // ease-out cubic, faster settle
-          wheelMultiplier: 1.1,
-          touchMultiplier: 1.5,
-          syncTouch: false,
-        });
-
-        function raf(time: number) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-      }
-
-      // Scroll-reveal observer — staggered fade-rise on enter
+      // Native scroll only — no Lenis. Hardware-accelerated, zero input latency.
+      // Scroll-reveal via IntersectionObserver (no scroll listeners involved).
       const io = new IntersectionObserver(
         (entries) => {
-          entries.forEach((entry, i) => {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const el = entry.target as HTMLElement;
-              const delay = Number(el.dataset.revealDelay ?? i * 60);
-              el.style.transition = `opacity 0.8s ease-out ${delay}ms, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`;
-              requestAnimationFrame(() => {
-                el.style.opacity = "1";
-                el.style.transform = "translateY(0)";
-              });
+              el.style.opacity = "1";
+              el.style.transform = "translateY(0)";
               io.unobserve(entry.target);
             }
           });
         },
-        { threshold: 0.12, rootMargin: "0px 0px -50px 0px" }
+        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
       );
 
       document.querySelectorAll("[data-reveal]").forEach((el) => {
         const target = el as HTMLElement;
         target.style.opacity = "0";
-        target.style.transform = "translateY(28px)";
+        target.style.transform = "translateY(24px)";
+        target.style.transition =
+          "opacity 0.7s ease-out, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)";
+        target.style.willChange = "opacity, transform";
         io.observe(target);
       });
     </script>
