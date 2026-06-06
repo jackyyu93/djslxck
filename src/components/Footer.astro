@@ -1,0 +1,65 @@
+---
+const year = new Date().getFullYear();
+const socials = [
+  { href: "https://instagram.com/djslxck", label: "Instagram" },
+  { href: "https://tiktok.com/@djslxck", label: "TikTok" },
+  { href: "https://soundcloud.com/djslxck", label: "SoundCloud" },
+  { href: "mailto:hello@djslxck.com", label: "Email" },
+];
+---
+
+<footer class="border-t border-border bg-bg">
+  <div class="container-x py-16">
+    <div class="grid gap-10 md:grid-cols-3 md:items-start">
+      <div>
+        <a href="/" class="font-display text-3xl uppercase tracking-widest">
+          DJ <span class="text-accent">SLXCK</span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm text-muted">
+          Beats that move crowds. Energy that lasts the night.
+        </p>
+      </div>
+
+      <div>
+        <p class="eyebrow mb-4">Explore</p>
+        <ul class="space-y-2 text-sm text-muted">
+          <li><a href="/about" class="hover:text-text">About</a></li>
+          <li><a href="/services" class="hover:text-text">Services</a></li>
+          <li><a href="/portfolio" class="hover:text-text">Portfolio</a></li>
+          <li><a href="/gallery" class="hover:text-text">Gallery</a></li>
+          <li><a href="/reviews" class="hover:text-text">Reviews</a></li>
+          <li><a href="/contact" class="hover:text-text">Contact & Booking</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow mb-4">Connect</p>
+        <ul class="space-y-2 text-sm text-muted">
+          {
+            socials.map((s) => (
+              <li>
+                <a
+                  href={s.href}
+                  target={s.href.startsWith("http") ? "_blank" : undefined}
+                  rel={s.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  class="hover:text-text"
+                >
+                  {s.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
+      <p class="text-xs uppercase tracking-widest text-muted">
+        © {year} DJ Slxck. All rights reserved.
+      </p>
+      <p class="text-xs text-muted">
+        Crafted with intent. Built to move.
+      </p>
+    </div>
+  </div>
+</footer>

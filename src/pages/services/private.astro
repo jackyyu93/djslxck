@@ -1,0 +1,40 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Private Events — DJ SLXCK"
+  description="Birthdays, milestones, holiday parties — book DJ Slxck for your private event."
+>
+  <section class="container-x py-20 md:py-28">
+    <div class="grid gap-12 md:grid-cols-2 md:items-center">
+      <div data-reveal>
+        <p class="eyebrow">Private Events</p>
+        <h1 class="display-xl mt-4 text-text">
+          Make it a <span class="text-accent">night.</span>
+        </h1>
+        <p class="mt-8 text-lg text-muted">
+          Birthdays. Anniversaries. Quinces. Sweet 16s. Holiday parties. Whatever the occasion, DJ Slxck reads the room and runs the night.
+        </p>
+        <a href="/contact" class="btn-primary mt-10">Check Availability</a>
+      </div>
+      <img
+        src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1400&q=80"
+        alt="Private event"
+        class="aspect-[4/5] rounded-2xl object-cover"
+        loading="lazy"
+        data-reveal
+      />
+    </div>
+  </section>
+
+  <section class="border-t border-border bg-surface">
+    <div class="container-x py-20 md:py-28 text-center">
+      <p class="eyebrow" data-reveal>Ready to Plan?</p>
+      <h2 class="display-lg mx-auto mt-4 max-w-2xl text-text" data-reveal>
+        Tell me about your event.
+      </h2>
+      <a href="/contact" class="btn-primary mt-10 inline-flex">Start the Conversation</a>
+    </div>
+  </section>
+</BaseLayout>

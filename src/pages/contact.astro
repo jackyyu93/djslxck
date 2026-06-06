@@ -1,0 +1,86 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BookingForm from "@/components/BookingForm.astro";
+---
+
+<BaseLayout
+  title="Contact & Booking — DJ SLXCK"
+  description="Book DJ Slxck for your event. Weddings, private events, corporate, clubs."
+>
+  <section class="container-x py-20 md:py-28">
+    <div class="max-w-3xl">
+      <p class="eyebrow" data-reveal>Contact & Booking</p>
+      <h1 class="display-xl mt-4 text-text" data-reveal>Let's Talk</h1>
+      <p class="mt-8 text-xl text-muted" data-reveal>
+        Tell me about your event. I'll get back within 24 hours.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-x pb-24 md:pb-32">
+    <div class="grid gap-12 lg:grid-cols-[1.5fr_1fr]">
+      <div data-reveal>
+        <BookingForm />
+      </div>
+
+      <aside class="space-y-6" data-reveal>
+        <div class="rounded-2xl border border-border bg-surface p-6">
+          <p class="eyebrow mb-3">Direct</p>
+          <a
+            href="mailto:hello@djslxck.com"
+            class="block text-lg font-semibold text-text hover:text-accent"
+          >
+            hello@djslxck.com
+          </a>
+          <p class="mt-1 text-sm text-muted">
+            Replace with real booking email.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-border bg-surface p-6">
+          <p class="eyebrow mb-3">Social</p>
+          <ul class="space-y-3">
+            <li>
+              <a
+                href="https://instagram.com/djslxck"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-between text-text hover:text-accent"
+              >
+                <span>Instagram</span>
+                <span class="text-sm text-muted">@djslxck</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://tiktok.com/@djslxck"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-between text-text hover:text-accent"
+              >
+                <span>TikTok</span>
+                <span class="text-sm text-muted">@djslxck</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://soundcloud.com/djslxck"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-between text-text hover:text-accent"
+              >
+                <span>SoundCloud</span>
+                <span class="text-sm text-muted">/djslxck</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="rounded-2xl border border-accent/40 bg-accent/5 p-6">
+          <p class="eyebrow mb-3">Response Time</p>
+          <p class="text-text">Within 24 hours, most days same-day.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

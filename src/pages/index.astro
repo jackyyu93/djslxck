@@ -1,0 +1,134 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/Hero.astro";
+import ServiceCard from "@/components/ServiceCard.astro";
+import MixEmbed from "@/components/MixEmbed.astro";
+import Marquee from "@/components/Marquee.astro";
+
+const services = [
+  {
+    href: "/services/weddings",
+    title: "Weddings",
+    description:
+      "Set the tone for the most important day of your life. Curated playlists, seamless MC work, and unforgettable energy.",
+    image:
+      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    href: "/services/private",
+    title: "Private Events",
+    description:
+      "Birthdays, milestones, after-parties. Custom sets dialed to your guests, your vibe, your night.",
+    image:
+      "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    href: "/services/corporate",
+    title: "Corporate & Clubs",
+    description:
+      "Brand activations, holiday parties, club residencies. Professional setup, pro-grade sound, zero compromise.",
+    image:
+      "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=1200&q=80",
+  },
+];
+
+const partners = [
+  "United Center",
+  "Soldier Field",
+  "House of Blues",
+  "Aragon Ballroom",
+  "Lincoln Hall",
+  "Concord Music Hall",
+];
+---
+
+<BaseLayout>
+  <Hero />
+
+  <Marquee items={partners} />
+
+  <!-- Services -->
+  <section class="container-x py-24 md:py-32">
+    <div class="max-w-2xl">
+      <p class="eyebrow" data-reveal>What I Do</p>
+      <h2 class="display-lg mt-4 text-text" data-reveal>Services</h2>
+      <p class="mt-6 text-lg text-muted" data-reveal>
+        Every event is different. Every set is custom. From intimate weddings to packed-out clubs, I bring the same energy and the same standard.
+      </p>
+    </div>
+
+    <div class="mt-14 grid gap-6 md:grid-cols-3">
+      {services.map((s) => <ServiceCard {...s} />)}
+    </div>
+  </section>
+
+  <!-- About preview -->
+  <section class="border-t border-border bg-surface">
+    <div class="container-x py-24 md:py-32">
+      <div class="grid gap-12 md:grid-cols-2 md:items-center">
+        <div data-reveal>
+          <p class="eyebrow">About DJ Slxck</p>
+          <h2 class="display-lg mt-4 text-text">
+            Built in <span class="text-accent">the booth.</span>
+            Forged on <span class="text-accent">the floor.</span>
+          </h2>
+          <p class="mt-6 text-lg text-muted">
+            DJ Slxck started spinning at small bars and house parties — learning every crowd, every transition, every drop. That obsession turned into residencies, festivals, and a reputation for never letting the energy dip.
+          </p>
+          <p class="mt-4 text-lg text-muted">
+            Whatever the room, whatever the crowd — the goal is the same: a night people don't stop talking about.
+          </p>
+          <a href="/about" class="btn-ghost mt-8">Read the Full Story</a>
+        </div>
+        <div class="grid grid-cols-2 gap-4" data-reveal>
+          <img
+            src="https://images.unsplash.com/photo-1493676304819-0d7a8d026dcf?auto=format&fit=crop&w=800&q=80"
+            alt=""
+            class="aspect-[3/4] rounded-2xl object-cover"
+            loading="lazy"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80"
+            alt=""
+            class="mt-12 aspect-[3/4] rounded-2xl object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Mix -->
+  <section class="container-x py-24 md:py-32">
+    <div class="max-w-2xl">
+      <p class="eyebrow" data-reveal>Hear It</p>
+      <h2 class="display-lg mt-4 text-text" data-reveal>Featured Mix</h2>
+      <p class="mt-6 text-lg text-muted" data-reveal>
+        A taste of the energy. Press play and tell me you don't move.
+      </p>
+    </div>
+    <div class="mt-12 max-w-3xl">
+      <MixEmbed
+        title="Latest Set — Coming Soon"
+        description="Replace this with a SoundCloud or YouTube embed once your first mix is live."
+      />
+    </div>
+    <div class="mt-10">
+      <a href="/portfolio" class="btn-ghost">All Mixes</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="border-t border-border">
+    <div class="container-x py-24 md:py-32 text-center">
+      <p class="eyebrow" data-reveal>Ready to Book?</p>
+      <h2 class="display-lg mx-auto mt-4 max-w-3xl text-text" data-reveal>
+        Let's make your night
+        <span class="text-accent">unforgettable.</span>
+      </h2>
+      <div class="mt-10" data-reveal>
+        <a href="/contact" class="btn-primary">Book Your Event</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

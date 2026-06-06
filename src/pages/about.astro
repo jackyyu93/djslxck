@@ -1,0 +1,80 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="About — DJ SLXCK"
+  description="The story behind DJ Slxck. From basement parties to packed-out venues."
+>
+  <section class="container-x py-20 md:py-28">
+    <div class="max-w-3xl">
+      <p class="eyebrow" data-reveal>About</p>
+      <h1 class="display-xl mt-4 text-text" data-reveal>
+        DJ <span class="text-accent">SLXCK</span>
+      </h1>
+      <p class="mt-8 text-xl text-muted" data-reveal>
+        Beats that move crowds. Energy that lasts the night.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-x pb-24 md:pb-32">
+    <div class="grid gap-12 md:grid-cols-[2fr_1fr] md:items-start">
+      <div class="space-y-6 text-lg text-muted" data-reveal>
+        <p>
+          DJ Slxck found his sound the way every great DJ does — in front of a crowd, mid-set, watching the floor react.
+        </p>
+        <p>
+          What started as basement parties and small-bar gigs turned into a relentless pursuit of the perfect transition, the perfect drop, the perfect read of a room. Today, that obsession shows up in every set: tight mixes, smart song selection, and energy that doesn't dip.
+        </p>
+        <p>
+          He's played weddings, milestone birthdays, brand activations, and packed-out clubs — and every one of them gets the same treatment. Pro-grade sound. Pro-grade prep. A custom-built setlist that fits your night, your crowd, your vibe.
+        </p>
+        <p>
+          No two events are the same. No two sets are either.
+        </p>
+        <p class="text-accent font-semibold">
+          [Placeholder bio — replace with real story.]
+        </p>
+      </div>
+
+      <aside class="space-y-4" data-reveal>
+        <div class="rounded-2xl border border-border bg-surface p-6">
+          <p class="eyebrow mb-3">Genres</p>
+          <p class="text-text">Hip-Hop · R&B · House · Top 40 · Throwbacks · Latin · Open Format</p>
+        </div>
+        <div class="rounded-2xl border border-border bg-surface p-6">
+          <p class="eyebrow mb-3">Based In</p>
+          <p class="text-text">[City]</p>
+        </div>
+        <div class="rounded-2xl border border-border bg-surface p-6">
+          <p class="eyebrow mb-3">Available For</p>
+          <p class="text-text">Weddings · Private · Corporate · Clubs · Travel</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Photo collage -->
+    <div class="mt-20 grid grid-cols-2 gap-4 md:grid-cols-4" data-reveal>
+      {
+        [
+          "https://images.unsplash.com/photo-1571266028243-d220bc2dccb4?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1493676304819-0d7a8d026dcf?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=800&q=80",
+        ].map((src) => (
+          <img
+            src={src}
+            alt=""
+            class="aspect-square rounded-xl object-cover"
+            loading="lazy"
+          />
+        ))
+      }
+    </div>
+
+    <div class="mt-16 text-center">
+      <a href="/contact" class="btn-primary">Book DJ Slxck</a>
+    </div>
+  </section>
+</BaseLayout>

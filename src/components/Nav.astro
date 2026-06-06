@@ -1,0 +1,126 @@
+---
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/services", label: "Services" },
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/contact", label: "Contact" },
+];
+
+const pathname = Astro.url.pathname;
+---
+
+<header
+  id="site-nav"
+  class="fixed inset-x-0 top-0 z-40 transition-all duration-300"
+  data-nav
+>
+  <div class="container-x flex items-center justify-between py-5">
+    <a href="/" class="flex items-center gap-2 group">
+      <span
+        class="font-display text-2xl uppercase tracking-widest text-text transition-colors group-hover:text-accent"
+      >
+        DJ <span class="text-accent">SLXCK</span>
+      </span>
+    </a>
+
+    <nav class="hidden md:block">
+      <ul class="flex items-center gap-1">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  "rounded-full px-4 py-2 text-sm font-medium uppercase tracking-wider transition-colors",
+                  pathname === link.href
+                    ? "text-accent"
+                    : "text-muted hover:text-text",
+                ]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a href="/contact" class="hidden md:inline-flex btn-primary text-sm py-2.5 px-5">
+      Book Now
+    </a>
+
+    <button
+      id="mobile-toggle"
+      class="md:hidden rounded-full border border-border p-2 text-text"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-border bg-bg/95 backdrop-blur-md"
+  >
+    <nav class="container-x py-6">
+      <ul class="flex flex-col gap-1">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  "block rounded-lg px-4 py-3 text-base font-medium uppercase tracking-wider",
+                  pathname === link.href
+                    ? "bg-surface text-accent"
+                    : "text-muted hover:bg-surface hover:text-text",
+                ]}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="pt-4">
+          <a href="/contact" class="btn-primary w-full">Book Now</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Spacer so content doesn't hide behind fixed nav -->
+<div class="h-20"></div>
+
+<script>
+  const nav = document.getElementById("site-nav");
+  const toggle = document.getElementById("mobile-toggle");
+  const menu = document.getElementById("mobile-menu");
+
+  // Scroll-state nav (transparent -> solid)
+  const onScroll = () => {
+    if (!nav) return;
+    if (window.scrollY > 20) {
+      nav.classList.add("bg-bg/85", "backdrop-blur-md", "border-b", "border-border");
+    } else {
+      nav.classList.remove("bg-bg/85", "backdrop-blur-md", "border-b", "border-border");
+    }
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Mobile toggle
+  toggle?.addEventListener("click", () => {
+    const expanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!expanded));
+    menu?.classList.toggle("hidden");
+  });
+</script>

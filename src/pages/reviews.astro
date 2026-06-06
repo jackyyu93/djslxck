@@ -1,0 +1,73 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const reviews = [
+  {
+    quote:
+      "DJ Slxck made our wedding unforgettable. The dance floor was packed from the first song to the last.",
+    name: "Sarah & Mike",
+    event: "Wedding · 2025",
+  },
+  {
+    quote:
+      "Professional from the first email to the last song. Read the room perfectly all night.",
+    name: "Alex R.",
+    event: "30th Birthday · 2024",
+  },
+  {
+    quote:
+      "Best DJ we've booked for our corporate holiday party. Clean setup, perfect energy, no complaints.",
+    name: "Jenna L.",
+    event: "Corporate Holiday · 2024",
+  },
+  {
+    quote:
+      "He gets it. Reads the crowd, plays what works, transitions are clean. Will book again.",
+    name: "DM ★★★★★",
+    event: "Club Residency",
+  },
+];
+---
+
+<BaseLayout title="Reviews — DJ SLXCK">
+  <section class="container-x py-20 md:py-28">
+    <div class="max-w-3xl">
+      <p class="eyebrow" data-reveal>Reviews</p>
+      <h1 class="display-xl mt-4 text-text" data-reveal>What People Say</h1>
+      <p class="mt-8 text-xl text-muted" data-reveal>
+        Don't take my word for it. Read theirs.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-x pb-24 md:pb-32">
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        reviews.map((r) => (
+          <figure
+            class="rounded-2xl border border-border bg-surface p-8 card-hover"
+            data-reveal
+          >
+            <svg
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              class="text-accent"
+              fill="currentColor"
+            >
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h2.5c.5 0 1 .5 1 1v1c0 2-2 4-4.5 4zm12 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 1.25.75 2 2 2h2.5c.5 0 1 .5 1 1v1c0 2-2 4-4.5 4z" />
+            </svg>
+            <blockquote class="mt-4 text-lg text-text">"{r.quote}"</blockquote>
+            <figcaption class="mt-6 text-sm">
+              <span class="font-semibold text-text">{r.name}</span>
+              <span class="text-muted"> · {r.event}</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+    <p class="mt-12 text-center text-sm text-muted">
+      Placeholder reviews — replace with real testimonials.
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+export interface Props {
+  href: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+const { href, title, description, image } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group relative block overflow-hidden rounded-2xl border border-border bg-surface card-hover"
+  data-reveal
+>
+  <div class="aspect-[4/5] overflow-hidden">
+    <img
+      src={image}
+      alt={title}
+      class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+      loading="lazy"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-bg via-bg/40 to-transparent"
+    ></div>
+  </div>
+
+  <div class="absolute inset-x-0 bottom-0 p-7">
+    <h3 class="display-md text-text">{title}</h3>
+    <p class="mt-2 text-sm text-muted">{description}</p>
+    <span
+      class="mt-4 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-accent"
+    >
+      Learn More
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </span>
+  </div>
+</a>

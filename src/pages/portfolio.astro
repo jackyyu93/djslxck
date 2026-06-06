@@ -1,0 +1,37 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import MixEmbed from "@/components/MixEmbed.astro";
+
+const mixes = [
+  { title: "Summer Heat 2025", description: "Open format · 60 min" },
+  { title: "Late Night House", description: "Deep house · 90 min" },
+  { title: "Throwbacks Vol. 1", description: "2000s & 2010s hits · 75 min" },
+  { title: "Wedding Cocktail Hour", description: "Smooth open format · 60 min" },
+];
+---
+
+<BaseLayout title="Portfolio — DJ SLXCK">
+  <section class="container-x py-20 md:py-28">
+    <div class="max-w-3xl">
+      <p class="eyebrow" data-reveal>Portfolio</p>
+      <h1 class="display-xl mt-4 text-text" data-reveal>Mixes & Reels</h1>
+      <p class="mt-8 text-xl text-muted" data-reveal>
+        Press play. The energy speaks for itself.
+      </p>
+    </div>
+  </section>
+
+  <section class="container-x pb-24 md:pb-32">
+    <div class="grid gap-6 md:grid-cols-2">
+      {mixes.map((m) => <MixEmbed {...m} />)}
+    </div>
+
+    <div class="mt-16 rounded-2xl border border-border bg-surface p-8 text-center">
+      <p class="text-muted">
+        More mixes coming soon. Follow on
+        <a href="https://soundcloud.com/djslxck" class="text-accent hover:underline">SoundCloud</a>
+        for the latest.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

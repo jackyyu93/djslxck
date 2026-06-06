@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://djslxck.com/sitemap-index.xml

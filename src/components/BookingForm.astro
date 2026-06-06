@@ -1,0 +1,119 @@
+---
+// Phase 3 will wire this to Web3Forms.
+// For now this is a non-functional stub with the final field layout.
+// To activate: replace WEB3FORMS_ACCESS_KEY below with your real key from https://web3forms.com
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "REPLACE_IN_PHASE_3";
+---
+
+<form
+  id="booking-form"
+  action="https://api.web3forms.com/submit"
+  method="POST"
+  class="grid gap-5"
+>
+  <input type="hidden" name="access_key" value={accessKey} />
+  <input type="hidden" name="subject" value="New Booking Inquiry — DJ Slxck" />
+  <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" />
+
+  <div class="grid gap-5 md:grid-cols-2">
+    <div>
+      <label for="name" class="eyebrow mb-2 block">Name *</label>
+      <input
+        id="name"
+        name="name"
+        type="text"
+        required
+        class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition-colors focus:border-accent"
+      />
+    </div>
+    <div>
+      <label for="email" class="eyebrow mb-2 block">Email *</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        required
+        class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition-colors focus:border-accent"
+      />
+    </div>
+  </div>
+
+  <div class="grid gap-5 md:grid-cols-2">
+    <div>
+      <label for="phone" class="eyebrow mb-2 block">Phone</label>
+      <input
+        id="phone"
+        name="phone"
+        type="tel"
+        class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition-colors focus:border-accent"
+      />
+    </div>
+    <div>
+      <label for="event_type" class="eyebrow mb-2 block">Event Type *</label>
+      <select
+        id="event_type"
+        name="event_type"
+        required
+        class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition-colors focus:border-accent"
+      >
+        <option value="">Select…</option>
+        <option>Wedding</option>
+        <option>Private Event</option>
+        <option>Corporate</option>
+        <option>Club / Bar</option>
+        <option>Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid gap-5 md:grid-cols-2">
+    <div>
+      <label for="event_date" class="eyebrow mb-2 block">Event Date</label>
+      <input
+        id="event_date"
+        name="event_date"
+        type="date"
+        class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition-colors focus:border-accent"
+      />
+    </div>
+    <div>
+      <label for="venue" class="eyebrow mb-2 block">Venue / City</label>
+      <input
+        id="venue"
+        name="venue"
+        type="text"
+        class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition-colors focus:border-accent"
+      />
+    </div>
+  </div>
+
+  <div>
+    <label for="headcount" class="eyebrow mb-2 block">Estimated Headcount</label>
+    <input
+      id="headcount"
+      name="headcount"
+      type="number"
+      min="0"
+      class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition-colors focus:border-accent"
+    />
+  </div>
+
+  <div>
+    <label for="message" class="eyebrow mb-2 block">Message *</label>
+    <textarea
+      id="message"
+      name="message"
+      required
+      rows="5"
+      class="w-full rounded-lg border border-border bg-surface px-4 py-3 text-text outline-none transition-colors focus:border-accent"
+    ></textarea>
+  </div>
+
+  <button type="submit" class="btn-primary justify-self-start">
+    Send Inquiry
+  </button>
+
+  <p class="text-xs text-muted">
+    By submitting, you agree to be contacted about your event. We never share your info.
+  </p>
+</form>

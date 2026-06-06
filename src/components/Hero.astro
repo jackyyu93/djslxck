@@ -1,0 +1,62 @@
+---
+export interface Props {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  image?: string;
+}
+
+const {
+  eyebrow = "Open Format · High Energy",
+  title = "DJ SLXCK",
+  subtitle = "Beats that move crowds. Energy that lasts the night.",
+  image = "https://images.unsplash.com/photo-1571266028243-d220bc2dccb4?auto=format&fit=crop&w=2400&q=80",
+} = Astro.props;
+---
+
+<section class="relative -mt-20 flex min-h-screen items-center overflow-hidden">
+  <!-- Background image -->
+  <div class="absolute inset-0 z-0">
+    <img
+      src={image}
+      alt=""
+      class="h-full w-full object-cover"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-b from-bg/70 via-bg/60 to-bg"
+    ></div>
+    <div
+      class="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(255,0,110,0.18),transparent_60%)]"
+    ></div>
+  </div>
+
+  <!-- Content -->
+  <div class="container-x relative z-10 pt-24">
+    <div class="max-w-4xl">
+      <p class="eyebrow" data-reveal>{eyebrow}</p>
+      <h1 class="display-xl mt-6 text-text" data-reveal>
+        {title}
+      </h1>
+      <p
+        class="mt-8 max-w-xl text-lg text-muted sm:text-xl"
+        data-reveal
+      >
+        {subtitle}
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4" data-reveal>
+        <a href="/contact" class="btn-primary">Book Your Event</a>
+        <a href="/portfolio" class="btn-ghost">Hear the Mixes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-muted">
+    <div class="flex flex-col items-center gap-2">
+      <span class="text-xs uppercase tracking-widest">Scroll</span>
+      <div class="h-10 w-px bg-gradient-to-b from-accent to-transparent"></div>
+    </div>
+  </div>
+</section>
