@@ -105,13 +105,18 @@ const pathname = Astro.url.pathname;
   const toggle = document.getElementById("mobile-toggle");
   const menu = document.getElementById("mobile-menu");
 
-  // Scroll-state nav (transparent -> solid)
+  // Scroll-state nav (transparent -> solid) — uses opacity for cheap rendering
+  let scrolled = false;
   const onScroll = () => {
     if (!nav) return;
-    if (window.scrollY > 20) {
-      nav.classList.add("bg-bg/85", "backdrop-blur-md", "border-b", "border-border");
-    } else {
-      nav.classList.remove("bg-bg/85", "backdrop-blur-md", "border-b", "border-border");
+    const shouldBeScrolled = window.scrollY > 20;
+    if (shouldBeScrolled !== scrolled) {
+      scrolled = shouldBeScrolled;
+      if (scrolled) {
+        nav.classList.add("bg-bg/95", "border-b", "border-border", "shadow-lg");
+      } else {
+        nav.classList.remove("bg-bg/95", "border-b", "border-border", "shadow-lg");
+      }
     }
   };
   onScroll();

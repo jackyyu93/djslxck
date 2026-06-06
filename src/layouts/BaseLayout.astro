@@ -91,12 +91,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       ).matches;
 
       // Smooth scroll — disabled if user prefers reduced motion
-      if (!prefersReducedMotion) {
+      // Also skip on touch devices where native scroll is better
+      const isTouch = window.matchMedia("(hover: none)").matches;
+      if (!prefersReducedMotion && !isTouch) {
         const lenis = new Lenis({
-          duration: 1.4,
-          easing: (t) => 1 - Math.pow(1 - t, 4), // ease-out quart
-          wheelMultiplier: 1,
+          duration: 0.8,
+          easing: (t) => 1 - Math.pow(1 - t, 3), // ease-out cubic, faster settle
+          wheelMultiplier: 1.1,
           touchMultiplier: 1.5,
+          syncTouch: false,
         });
 
         function raf(time: number) {

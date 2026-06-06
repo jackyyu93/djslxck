@@ -4,13 +4,15 @@ export interface Props {
   title?: string;
   subtitle?: string;
   image?: string;
+  imageMobile?: string;
 }
 
 const {
   eyebrow = "Open Format · High Energy",
   title = "DJ SLXCK",
   subtitle = "Beats that move crowds. Energy that lasts the night.",
-  image = "https://images.unsplash.com/photo-1571266028243-d220bc2dccb4?auto=format&fit=crop&w=2400&q=85",
+  image = "https://images.unsplash.com/photo-1571266028243-d220bc2dccb4?auto=format&fit=crop&w=1600&q=75",
+  imageMobile = "https://images.unsplash.com/photo-1571266028243-d220bc2dccb4?auto=format&fit=crop&w=900&q=70",
 } = Astro.props;
 ---
 
@@ -20,14 +22,18 @@ const {
 >
   <!-- Background image with parallax -->
   <div class="absolute inset-0 z-0" data-hero-bg>
-    <img
-      src={image}
-      alt=""
-      class="h-[115%] w-full object-cover will-change-transform"
-      loading="eager"
-      fetchpriority="high"
-      data-hero-image
-    />
+    <picture>
+      <source media="(max-width: 768px)" srcset={imageMobile} />
+      <img
+        src={image}
+        alt=""
+        class="h-[110%] w-full object-cover will-change-transform"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        data-hero-image
+      />
+    </picture>
     <!-- Layered overlays for depth -->
     <div
       class="absolute inset-0 bg-gradient-to-b from-bg/60 via-bg/55 to-bg"
@@ -71,7 +77,7 @@ const {
   >
     <div class="flex flex-col items-center gap-2">
       <span class="text-xs uppercase tracking-widest">Scroll</span>
-      <div class="h-10 w-px animate-pulse bg-gradient-to-b from-accent to-transparent"></div>
+      <div class="h-10 w-px bg-gradient-to-b from-accent to-transparent"></div>
     </div>
   </div>
 </section>
@@ -103,20 +109,33 @@ const {
     onReady();
   }
 
-  // Subtle parallax on the hero background
+  // Subtle parallax on the hero background — translate3d only, GPU-accelerated
+  // Skipped on touch devices, reduced-motion users, and small screens
   const heroImage = document.querySelector(
     "[data-hero-image]"
   ) as HTMLElement | null;
   const heroSection = document.querySelector("[data-hero]") as HTMLElement | null;
 
-  if (heroImage && heroSection && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const enableParallax =
+    heroImage &&
+    heroSection &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
+    !window.matchMedia("(hover: none)").matches &&
+    window.innerWidth >= 1024;
+
+  if (enableParallax) {
     let ticking = false;
+    let lastOffset = 0;
+
     const update = () => {
       const rect = heroSection.getBoundingClientRect();
-      // Only animate while hero is in view
+      // Only animate while hero is at all visible
       if (rect.bottom > 0 && rect.top < window.innerHeight) {
-        const offset = Math.max(0, -rect.top) * 0.35;
-        heroImage.style.transform = `translateY(${offset}px) scale(1.05)`;
+        const offset = Math.max(0, -rect.top) * 0.2;
+        if (Math.abs(offset - lastOffset) > 0.5) {
+          heroImage.style.transform = `translate3d(0, ${offset}px, 0)`;
+          lastOffset = offset;
+        }
       }
       ticking = false;
     };
@@ -132,5 +151,25 @@ const {
       { passive: true }
     );
     update();
+  }
+
+  // Fade out scroll cue once user starts scrolling
+  const scrollCue = document.querySelector("[data-hero-cue]") as HTMLElement | null;
+  if (scrollCue) {
+    let cueHidden = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!cueHidden && window.scrollY > 80) {
+          cueHidden = true;
+          scrollCue.style.transition = "opacity 0.4s ease-out";
+          scrollCue.style.opacity = "0";
+        } else if (cueHidden && window.scrollY <= 20) {
+          cueHidden = false;
+          scrollCue.style.opacity = "1";
+        }
+      },
+      { passive: true }
+    );
   }
 </script>

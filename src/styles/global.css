@@ -13,13 +13,14 @@
     color-scheme: dark;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  /* Note: no scroll-behavior:smooth here — Lenis handles smooth scroll
+     and the native CSS smooth scrolling causes jank when both are active. */
 
   body {
     @apply bg-bg text-text font-sans antialiased;
     font-feature-settings: "ss01", "cv11";
+    /* Prevent overscroll bounce that can cause perceived lag */
+    overscroll-behavior-y: none;
   }
 
   ::selection {
